@@ -34,17 +34,17 @@ export default function CompliancePage() {
     load()
   }, [])
 
-  if (loading) return <div style={{ padding: 60, textAlign: 'center', color: '#64748b' }}>Loading compliance data...</div>
-  if (!data) return <div style={{ padding: 60, textAlign: 'center', color: '#64748b' }}>No data available.</div>
+  if (loading) return <div className="p-[60px] text-center text-vigil-muted-dark">Loading compliance data...</div>
+  if (!data) return <div className="p-[60px] text-center text-vigil-muted-dark">No data available.</div>
 
   const compliance = data.compliance_summary
 
   return (
     <div>
-      <h1 style={{ fontSize: 24, fontWeight: 700, color: '#f8fafc', marginBottom: 8 }}>Compliance</h1>
-      <p style={{ fontSize: 14, color: '#94a3b8', marginBottom: 24 }}>Real-time compliance posture across 7 frameworks.</p>
+      <h1 className="text-2xl font-bold text-vigil-text mb-2">Compliance</h1>
+      <p className="text-sm text-vigil-muted mb-6">Real-time compliance posture across 7 frameworks.</p>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
         {Object.entries(compliance).map(([name, stats]) => {
           const color = frameworkColors[name] || '#64748b'
           const total = stats.total_findings
@@ -52,42 +52,42 @@ export default function CompliancePage() {
           const pct = Math.max(0, Math.min(100, passed))
 
           return (
-            <div key={name} style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 24 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: color }} />
-                  <span style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc' }}>{name}</span>
+            <div key={name} className="bg-vigil-surface border border-vigil-border rounded-xl p-6">
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+                  <span className="text-base font-bold text-vigil-text">{name}</span>
                 </div>
-                <span style={{ fontSize: 20, fontWeight: 700, color }}>{pct}%</span>
+                <span className="text-xl font-bold" style={{ color }}>{pct}%</span>
               </div>
 
-              <div style={{ height: 8, background: '#334155', borderRadius: 4, marginBottom: 16, overflow: 'hidden' }}>
-                <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 4, transition: 'width 0.5s' }} />
+              <div className="h-2 bg-vigil-border-light rounded mb-4 overflow-hidden">
+                <div className="h-full rounded transition-all duration-500" style={{ width: `${pct}%`, background: color }} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginBottom: 16 }}>
-                <div style={{ textAlign: 'center', padding: 8, background: 'rgba(239, 68, 68, 0.05)', borderRadius: 6 }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#ef4444' }}>{stats.critical}</div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>Critical</div>
+              <div className="grid grid-cols-4 gap-2 mb-4">
+                <div className="text-center p-2 bg-vigil-danger/5 rounded-md">
+                  <div className="text-lg font-bold text-vigil-danger">{stats.critical}</div>
+                  <div className="text-[10px] text-vigil-muted-dark">Critical</div>
                 </div>
-                <div style={{ textAlign: 'center', padding: 8, background: 'rgba(249, 115, 22, 0.05)', borderRadius: 6 }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#f97316' }}>{stats.high}</div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>High</div>
+                <div className="text-center p-2 bg-vigil-orange/5 rounded-md">
+                  <div className="text-lg font-bold text-vigil-orange">{stats.high}</div>
+                  <div className="text-[10px] text-vigil-muted-dark">High</div>
                 </div>
-                <div style={{ textAlign: 'center', padding: 8, background: 'rgba(234, 179, 8, 0.05)', borderRadius: 6 }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#eab308' }}>{stats.medium}</div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>Medium</div>
+                <div className="text-center p-2 bg-vigil-warning/5 rounded-md">
+                  <div className="text-lg font-bold text-vigil-warning">{stats.medium}</div>
+                  <div className="text-[10px] text-vigil-muted-dark">Medium</div>
                 </div>
-                <div style={{ textAlign: 'center', padding: 8, background: 'rgba(34, 197, 94, 0.05)', borderRadius: 6 }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#22c55e' }}>{Math.max(0, 100 - stats.critical - stats.high - stats.medium)}</div>
-                  <div style={{ fontSize: 10, color: '#64748b' }}>Passing</div>
+                <div className="text-center p-2 bg-vigil-success/5 rounded-md">
+                  <div className="text-lg font-bold text-vigil-success">{Math.max(0, 100 - stats.critical - stats.high - stats.medium)}</div>
+                  <div className="text-[10px] text-vigil-muted-dark">Passing</div>
                 </div>
               </div>
 
-              <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8 }}>Controls Affected:</div>
-              <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              <div className="text-xs text-vigil-muted-dark mb-2">Controls Affected:</div>
+              <div className="flex gap-1.5 flex-wrap">
                 {stats.controls_affected.map(c => (
-                  <span key={c} style={{ fontSize: 11, padding: '3px 8px', background: '#0a0e1a', border: '1px solid #334155', borderRadius: 4, color: '#94a3b8' }}>
+                  <span key={c} className="text-[11px] py-[3px] px-2 bg-vigil-bg border border-vigil-border-light rounded text-vigil-muted">
                     {c}
                   </span>
                 ))}
@@ -98,30 +98,30 @@ export default function CompliancePage() {
       </div>
 
       {/* Framework explanations */}
-      <div style={{ marginTop: 32, background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 24 }}>
-        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#f8fafc', marginBottom: 16 }}>Framework Requirements</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+      <div className="mt-8 bg-vigil-surface border border-vigil-border rounded-xl p-6">
+        <h2 className="text-base font-bold text-vigil-text mb-4">Framework Requirements</h2>
+        <div className="grid grid-cols-2 gap-4">
           <div>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#ef4444', marginBottom: 8 }}>HIPAA</h3>
-            <ul style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.8, paddingLeft: 16 }}>
+            <h3 className="text-sm font-semibold text-vigil-danger mb-2">HIPAA</h3>
+            <ul className="text-[13px] text-vigil-muted leading-[1.8] pl-4">
               <li>164.312(a)(1) - Access Control</li>
               <li>164.312(a)(2)(iv) - Encryption</li>
               <li>164.312(b) - Audit Controls</li>
               <li>164.312(e)(1) - Transmission Security</li>
               <li>164.308(a)(7) - Data Backup Plan</li>
             </ul>
-            <p style={{ fontSize: 12, color: '#64748b', marginTop: 8 }}>Penalties: $100 - $1.5M per violation</p>
+            <p className="text-xs text-vigil-muted-dark mt-2">Penalties: $100 - $1.5M per violation</p>
           </div>
           <div>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#06b6d4', marginBottom: 8 }}>GDPR</h3>
-            <ul style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.8, paddingLeft: 16 }}>
+            <h3 className="text-sm font-semibold text-cyan-500 mb-2">GDPR</h3>
+            <ul className="text-[13px] text-vigil-muted leading-[1.8] pl-4">
               <li>Art. 32(1) - Security of Processing</li>
               <li>Art. 25(1) - Data Protection by Design</li>
               <li>Art. 5(1)(f) - Integrity & Confidentiality</li>
               <li>Art. 17 - Right to Erasure</li>
               <li>Art. 33 - Breach Notification</li>
             </ul>
-            <p style={{ fontSize: 12, color: '#64748b', marginTop: 8 }}>Penalties: Up to 4% global turnover or €20M</p>
+            <p className="text-xs text-vigil-muted-dark mt-2">Penalties: Up to 4% global turnover or €20M</p>
           </div>
         </div>
       </div>

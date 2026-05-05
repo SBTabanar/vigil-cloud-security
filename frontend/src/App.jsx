@@ -14,7 +14,7 @@ import Layout from './components/Layout'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
-  if (loading) return <div style={{ display: 'flex', justifyContent: 'center', padding: 100, color: '#64748b' }}>Loading...</div>
+  if (loading) return <div className="flex justify-center py-24 text-vigil-muted-dark">Loading...</div>
   return user ? children : <Navigate to="/login" />
 }
 

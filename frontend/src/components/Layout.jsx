@@ -21,59 +21,43 @@ export default function Layout() {
   ]
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0a0e1a' }}>
+    <div className="flex min-h-screen bg-vigil-bg">
       {/* Mobile overlay */}
       {sidebarOpen && (
-        <div 
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40 }}
+        <div
+          className="fixed inset-0 bg-black/50 z-40"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside style={{
-        width: 260,
-        background: '#0f172a',
-        borderRight: '1px solid #1e293b',
-        display: 'flex',
-        flexDirection: 'column',
-        position: sidebarOpen ? 'fixed' : 'relative',
-        height: '100vh',
-        zIndex: 50,
-        transform: sidebarOpen ? 'translateX(0)' : window.innerWidth < 768 ? 'translateX(-100%)' : 'translateX(0)',
-        transition: 'transform 0.3s ease'
-      }}>
-        <div style={{ padding: 20, borderBottom: '1px solid #1e293b', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Shield size={28} color="#3b82f6" />
+      <aside
+        className={`${sidebarOpen ? 'fixed' : 'relative'} md:relative flex flex-col h-screen z-50 w-[260px] bg-vigil-surface border-r border-vigil-border transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+      >
+        <div className="p-5 border-b border-vigil-border flex items-center gap-3">
+          <Shield size={28} className="text-vigil-primary" />
           <div>
-            <div style={{ fontWeight: 700, fontSize: 16, color: '#f8fafc' }}>Vigil</div>
-            <div style={{ fontSize: 11, color: '#64748b' }}>Risk Surface</div>
+            <div className="font-bold text-base text-vigil-text">Vigil</div>
+            <div className="text-[11px] text-vigil-muted-dark">Risk Surface</div>
           </div>
-          <button onClick={() => setSidebarOpen(false)} style={{ marginLeft: 'auto', display: window.innerWidth >= 768 ? 'none' : 'block', color: '#64748b' }}>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="ml-auto block md:hidden text-vigil-muted-dark"
+          >
             <X size={20} />
           </button>
         </div>
 
-        <nav style={{ flex: 1, padding: 12 }}>
+        <nav className="flex-1 p-3">
           {navItems.map(item => (
             <NavLink
               key={item.to}
               to={item.to}
               end={item.to === '/app'}
               onClick={() => setSidebarOpen(false)}
-              style={({ isActive }) => ({
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                padding: '10px 14px',
-                borderRadius: 8,
-                marginBottom: 4,
-                fontSize: 14,
-                fontWeight: 500,
-                color: isActive ? '#60a5fa' : '#94a3b8',
-                background: isActive ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
-                transition: 'all 0.2s'
-              })}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-3.5 py-2.5 rounded-lg mb-1 text-sm font-medium transition-all duration-200 ${isActive ? 'text-vigil-primary-light bg-vigil-primary/10' : 'text-vigil-muted bg-transparent'}`
+              }
             >
               <item.icon size={18} />
               {item.label}
@@ -81,11 +65,11 @@ export default function Layout() {
           ))}
         </nav>
 
-        <div style={{ padding: 16, borderTop: '1px solid #1e293b' }}>
-          <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8 }}>{user?.email}</div>
-          <button 
+        <div className="p-4 border-t border-vigil-border">
+          <div className="text-xs text-vigil-muted-dark mb-2">{user?.email}</div>
+          <button
             onClick={handleLogout}
-            style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ef4444', fontSize: 13, fontWeight: 500 }}
+            className="flex items-center gap-2 text-vigil-danger text-[13px] font-medium"
           >
             <LogOut size={16} /> Sign Out
           </button>
@@ -93,28 +77,20 @@ export default function Layout() {
       </aside>
 
       {/* Main content */}
-      <main style={{ flex: 1, overflow: 'auto' }}>
-        <header style={{
-          height: 60,
-          background: '#0f172a',
-          borderBottom: '1px solid #1e293b',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 24px',
-          justifyContent: 'space-between',
-          position: 'sticky',
-          top: 0,
-          zIndex: 30
-        }}>
-          <button onClick={() => setSidebarOpen(true)} style={{ color: '#94a3b8', display: window.innerWidth >= 768 ? 'none' : 'block' }}>
+      <main className="flex-1 overflow-auto">
+        <header className="h-[60px] bg-vigil-surface border-b border-vigil-border flex items-center px-6 justify-between sticky top-0 z-30">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="text-vigil-muted block md:hidden"
+          >
             <Menu size={24} />
           </button>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: 12, color: '#64748b' }}>System Online</span>
+          <div className="flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-vigil-success animate-[pulse_2s_infinite]" />
+            <span className="text-xs text-vigil-muted-dark">System Online</span>
           </div>
         </header>
-        <div style={{ padding: 24, maxWidth: 1400, margin: '0 auto' }}>
+        <div className="p-6 max-w-[1400px] mx-auto">
           <Outlet />
         </div>
       </main>

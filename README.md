@@ -32,8 +32,9 @@ This project is **open-source** and intended as a portfolio piece. You can self-
                     ┌──────┴──────┬──────────┐
                     ▼             ▼          ▼
               ┌────────┐   ┌──────────┐  ┌──────────┐
-              │ Redis  │   │ Stripe/  │  │ SendGrid │
-              │(Cache) │   │ PayMongo │  │ (Email)  │
+              │ Redis  │   │ Payments │  │ SendGrid │
+              │(Cache) │   │ (Stripe/ │  │ (Email)  │
+              │        │   │ PayMongo)│  │          │
               └────────┘   └──────────┘  └──────────┘
 ```
 
@@ -64,7 +65,7 @@ This project is **open-source** and intended as a portfolio piece. You can self-
 ### Full-Stack Implementation
 - **Backend:** FastAPI, SQLAlchemy, JWT auth, async email service
 - **Frontend:** React 18, React Router, Recharts, inline CSS (no UI framework dependency)
-- **Payments:** Dual-provider billing with Stripe (global cards) and PayMongo (PH e-wallets: GCash, Maya)
+- **Payment Integration:** Demonstrates dual-provider checkout (Stripe + PayMongo) as a technical showcase of internationalization
 - **DevOps:** Docker Compose, multi-stage builds, environment-based config
 
 ---
@@ -78,7 +79,7 @@ This project is **open-source** and intended as a portfolio piece. You can self-
 | **Frontend** | React 18, Vite | Fast HMR, small bundle, modern JSX |
 | **Database** | SQLite (dev), PostgreSQL (prod) | Zero-config local dev, production-grade migration path |
 | **Cache** | Redis | Session storage, rate limiting, Celery broker |
-| **Payments** | Stripe + PayMongo | Global reach + Philippines local payment methods |
+| **Payments** | Stripe + PayMongo | Technical demo of dual-provider checkout for global reach |
 | **Email** | SendGrid | Reliable transactional email with templates |
 | **Infra** | Docker, Docker Compose | Portable, reproducible, one-command deploy |
 
@@ -166,10 +167,10 @@ npm run dev
 | `GET /organizations/{id}/onboarding-template` | Generates CloudFormation IAM role template |
 | `POST /organizations/{id}/scans` | Triggers async security scan |
 | `GET /organizations/{id}/dashboard` | Aggregated risk metrics + timeline |
-| `POST /billing/checkout` | Stripe Checkout session |
-| `POST /billing/checkout/paymongo` | PayMongo Source for GCash/Maya |
-| `POST /billing/webhook` | Stripe webhook handler (signature verified) |
-| `POST /billing/webhook/paymongo` | PayMongo webhook handler (HMAC verified) |
+| `POST /billing/checkout` | Stripe Checkout session (demo) |
+| `POST /billing/checkout/paymongo` | PayMongo Source for GCash/Maya (demo) |
+| `POST /billing/webhook` | Stripe webhook handler — signature verification |
+| `POST /billing/webhook/paymongo` | PayMongo webhook handler — HMAC verification |
 | `POST /remediation/generate/{id}` | Terraform patch generation |
 
 ---
@@ -192,9 +193,9 @@ Model artifact: `vigil/data/models/vigil_risk_model.pkl`
 
 | Decision | Rationale |
 |----------|-----------|
-| **Inline CSS (no Tailwind/MUI)** | Demonstrates raw CSS-in-JS understanding, zero dependency bloat |
+| **Tailwind CSS v4** | Utility-first styling with custom design tokens — contributor-friendly and maintainable |
 | **SQLite for dev** | Contributors can run immediately without PostgreSQL setup |
-| **Dual payment providers** | Shows internationalization awareness (Stripe for US/EU, PayMongo for PH) |
+| **Dual payment providers** | Demonstrates webhook security and multi-provider integration patterns |
 | **Heuristic + ML scoring** | Explainable scores for enterprise buyers, not black-box predictions |
 | **JWT over sessions** | Stateless auth fits containerized deployment |
 | **Terraform over boto3** | Infrastructure-as-code remediation leaves audit trail |

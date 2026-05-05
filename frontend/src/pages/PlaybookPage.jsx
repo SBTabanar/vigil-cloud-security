@@ -11,47 +11,21 @@ import {
 const Section = ({ title, icon: Icon, children, defaultOpen = false }) => {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div style={{ 
-      background: '#0f172a', 
-      border: '1px solid #1e293b', 
-      borderRadius: 12, 
-      marginBottom: 16,
-      overflow: 'hidden'
-    }}>
+    <div className="bg-vigil-surface border border-vigil-border rounded-xl mb-4 overflow-hidden">
       <button 
         onClick={() => setOpen(!open)}
-        style={{ 
-          width: '100%', 
-          padding: '20px 24px', 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: 14,
-          background: 'transparent',
-          border: 'none',
-          color: '#f8fafc',
-          cursor: 'pointer',
-          textAlign: 'left'
-        }}
+        className="w-full py-5 px-6 flex items-center gap-3.5 bg-transparent border-none text-vigil-text cursor-pointer text-left"
       >
-        <div style={{ 
-          width: 40, 
-          height: 40, 
-          borderRadius: 10, 
-          background: 'rgba(59, 130, 246, 0.1)', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          border: '1px solid rgba(59, 130, 246, 0.2)'
-        }}>
+        <div className="w-10 h-10 rounded-[10px] bg-vigil-primary/10 flex items-center justify-center border border-vigil-primary/20">
           <Icon size={20} color="#3b82f6" />
         </div>
-        <div style={{ flex: 1 }}>
-          <h3 style={{ fontSize: 17, fontWeight: 700, color: '#f8fafc', margin: 0 }}>{title}</h3>
+        <div className="flex-1">
+          <h3 className="text-[17px] font-bold text-vigil-text m-0">{title}</h3>
         </div>
         {open ? <ChevronDown size={20} color="#64748b" /> : <ChevronRight size={20} color="#64748b" />}
       </button>
       {open && (
-        <div style={{ padding: '0 24px 24px', borderTop: '1px solid #1e293b' }}>
+        <div className="px-6 pb-6 border-t border-vigil-border">
           {children}
         </div>
       )}
@@ -60,67 +34,36 @@ const Section = ({ title, icon: Icon, children, defaultOpen = false }) => {
 }
 
 const CodeBlock = ({ title, code, lang = 'python' }) => (
-  <div style={{ margin: '16px 0' }}>
-    {title && <div style={{ fontSize: 12, color: '#64748b', marginBottom: 6, fontWeight: 600 }}>{title}</div>}
-    <pre style={{ 
-      background: '#0a0e1a', 
-      padding: 16, 
-      borderRadius: 8, 
-      overflow: 'auto',
-      fontSize: 13,
-      color: '#e2e8f0',
-      border: '1px solid #1e293b',
-      lineHeight: 1.6
-    }}>
+  <div className="my-4">
+    {title && <div className="text-xs text-vigil-muted-dark mb-1.5 font-semibold">{title}</div>}
+    <pre className="bg-vigil-bg p-4 rounded-lg overflow-auto text-[13px] text-gray-200 border border-vigil-border leading-relaxed">
       <code>{code}</code>
     </pre>
   </div>
 )
 
 const Analogy = ({ children }) => (
-  <div style={{ 
-    background: 'rgba(245, 158, 11, 0.05)', 
-    border: '1px solid rgba(245, 158, 11, 0.2)', 
-    borderRadius: 8, 
-    padding: '14px 18px',
-    margin: '16px 0',
-    display: 'flex',
-    gap: 12,
-    alignItems: 'flex-start'
-  }}>
-    <Lightbulb size={18} color="#f59e0b" style={{ marginTop: 2, flexShrink: 0 }} />
-    <div style={{ fontSize: 14, color: '#d4d4d8', lineHeight: 1.6 }}>
-      <strong style={{ color: '#fbbf24' }}>Analogy:</strong> {children}
+  <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg py-3.5 px-[18px] my-4 flex gap-3 items-start">
+    <Lightbulb size={18} color="#f59e0b" className="mt-0.5 shrink-0" />
+    <div className="text-sm text-gray-300 leading-relaxed">
+      <strong className="text-amber-400">Analogy:</strong> {children}
     </div>
   </div>
 )
 
 const KeyConcept = ({ term, children }) => (
-  <div style={{ margin: '12px 0', paddingLeft: 16, borderLeft: '2px solid #3b82f6' }}>
-    <span style={{ fontWeight: 600, color: '#60a5fa', fontSize: 14 }}>{term}</span>
-    <p style={{ margin: '4px 0 0', color: '#94a3b8', fontSize: 14, lineHeight: 1.6 }}>{children}</p>
+  <div className="my-3 pl-4 border-l-2 border-vigil-primary">
+    <span className="font-semibold text-vigil-primary-light text-sm">{term}</span>
+    <p className="mt-1 text-vigil-muted text-sm leading-relaxed">{children}</p>
   </div>
 )
 
 const Step = ({ number, title, desc }) => (
-  <div style={{ display: 'flex', gap: 16, margin: '16px 0', alignItems: 'flex-start' }}>
-    <div style={{ 
-      width: 32, 
-      height: 32, 
-      borderRadius: '50%', 
-      background: 'rgba(59, 130, 246, 0.1)', 
-      border: '1px solid rgba(59, 130, 246, 0.3)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: 14,
-      fontWeight: 700,
-      color: '#3b82f6',
-      flexShrink: 0
-    }}>{number}</div>
+  <div className="flex gap-4 my-4 items-start">
+    <div className="w-8 h-8 rounded-full bg-vigil-primary/10 border border-vigil-primary/30 flex items-center justify-center text-sm font-bold text-vigil-primary shrink-0">{number}</div>
     <div>
-      <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: 15 }}>{title}</div>
-      <div style={{ color: '#94a3b8', fontSize: 14, marginTop: 2, lineHeight: 1.5 }}>{desc}</div>
+      <div className="font-semibold text-gray-200 text-[15px]">{title}</div>
+      <div className="text-vigil-muted text-sm mt-0.5 leading-normal">{desc}</div>
     </div>
   </div>
 )
@@ -142,68 +85,32 @@ export default function PlaybookPage() {
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0e1a' }}>
+    <div className="min-h-screen bg-vigil-bg">
       {/* Header */}
-      <div style={{ 
-        background: '#0f172a', 
-        borderBottom: '1px solid #1e293b', 
-        padding: '16px 32px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 16,
-        position: 'sticky',
-        top: 0,
-        zIndex: 50
-      }}>
-        <button onClick={() => navigate('/app')} style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: 6, fontSize: 14 }}>
+      <div className="bg-vigil-surface border-b border-vigil-border py-4 px-8 flex items-center gap-4 sticky top-0 z-50">
+        <button onClick={() => navigate('/app')} className="text-vigil-muted-dark flex items-center gap-1.5 text-sm">
           <ArrowLeft size={16} /> Back to Dashboard
         </button>
-        <div style={{ width: 1, height: 20, background: '#334155' }} />
+        <div className="w-px h-5 bg-vigil-border-light" />
         <BookOpen size={20} color="#3b82f6" />
-        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#f8fafc', margin: 0 }}>Vigil Master Playbook</h1>
-        <span style={{ 
-          fontSize: 11, 
-          padding: '3px 10px', 
-          background: 'rgba(239, 68, 68, 0.1)', 
-          color: '#ef4444', 
-          borderRadius: 4,
-          border: '1px solid rgba(239, 68, 68, 0.2)',
-          fontWeight: 600
-        }}>ADMIN ONLY</span>
+        <h1 className="text-lg font-bold text-vigil-text m-0">Vigil Master Playbook</h1>
+        <span className="text-[11px] py-[3px] px-2.5 bg-vigil-danger/10 text-vigil-danger rounded border border-vigil-danger/20 font-semibold">ADMIN ONLY</span>
       </div>
 
-      <div style={{ display: 'flex', maxWidth: 1400, margin: '0 auto' }}>
+      <div className="flex max-w-[1400px] mx-auto">
         {/* Sidebar */}
-        <aside style={{ 
-          width: 240, 
-          borderRight: '1px solid #1e293b', 
-          padding: '24px 12px',
-          position: 'sticky',
-          top: 65,
-          height: 'calc(100vh - 65px)',
-          overflow: 'auto'
-        }}>
-          <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12, paddingLeft: 12 }}>
+        <aside className="w-60 border-r border-vigil-border py-6 px-3 sticky top-[65px] h-[calc(100vh-65px)] overflow-auto">
+          <div className="text-[11px] font-semibold text-vigil-muted-dark uppercase tracking-wider mb-3 pl-3">
             Modules
           </div>
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
+              className="w-full py-2.5 px-3 flex items-center gap-2.5 border-none rounded-lg text-sm font-medium cursor-pointer mb-0.5"
               style={{
-                width: '100%',
-                padding: '10px 12px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
                 background: activeTab === tab.id ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
-                border: 'none',
-                borderRadius: 8,
-                color: activeTab === tab.id ? '#60a5fa' : '#94a3b8',
-                fontSize: 14,
-                fontWeight: 500,
-                cursor: 'pointer',
-                marginBottom: 2
+                color: activeTab === tab.id ? '#60a5fa' : '#94a3b8'
               }}
             >
               <tab.icon size={16} />
@@ -213,31 +120,25 @@ export default function PlaybookPage() {
         </aside>
 
         {/* Content */}
-        <main style={{ flex: 1, padding: '32px 40px', maxWidth: 900 }}>
+        <main className="flex-1 py-8 px-10 max-w-[900px]">
           
           {/* ARCHITECTURE TAB */}
           {activeTab === 'architecture' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>System Architecture</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32, lineHeight: 1.6 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">System Architecture</h2>
+              <p className="text-vigil-muted mb-8 leading-relaxed">
                 Understanding how all the pieces fit together. Think of Vigil as a security camera system for your cloud — 
                 but instead of just recording, it understands what it sees, predicts threats, and fixes vulnerabilities automatically.
               </p>
 
               <Section title="The Big Picture" icon={Layers} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
-                  Vigil is a <strong style={{ color: '#e2e8f0' }}>multi-tenant SaaS platform</strong> built on a layered architecture. 
+                <p className="text-vigil-muted leading-[1.7] mb-4">
+                  Vigil is a <strong className="text-gray-200">multi-tenant SaaS platform</strong> built on a layered architecture. 
                   Each layer has a single responsibility, and they communicate through well-defined APIs.
                 </p>
                 
-                <div style={{ 
-                  background: '#0a0e1a', 
-                  border: '1px solid #1e293b', 
-                  borderRadius: 12, 
-                  padding: 24,
-                  margin: '20px 0'
-                }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div className="bg-vigil-bg border border-vigil-border rounded-xl p-6 my-5">
+                  <div className="flex flex-col gap-3">
                     {[
                       { layer: 'Frontend (React)', desc: 'What the user sees — dashboards, forms, charts', color: '#3b82f6' },
                       { layer: 'API Gateway (FastAPI)', desc: 'Traffic cop — routes requests, validates auth, rate limits', color: '#8b5cf6' },
@@ -245,17 +146,12 @@ export default function PlaybookPage() {
                       { layer: 'Data Layer', desc: 'SQLite (now) / PostgreSQL (later) + Redis cache', color: '#f59e0b' },
                       { layer: 'External APIs', desc: 'AWS (scan target), Stripe (billing), SendGrid (email)', color: '#ef4444' }
                     ].map((item, i) => (
-                      <div key={i} style={{ 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        gap: 12,
-                        padding: '12px 16px',
-                        background: 'rgba(255,255,255,0.02)',
-                        borderRadius: 8,
-                        borderLeft: `3px solid ${item.color}`
-                      }}>
-                        <div style={{ fontWeight: 600, color: '#e2e8f0', minWidth: 180 }}>{item.layer}</div>
-                        <div style={{ color: '#94a3b8', fontSize: 14 }}>{item.desc}</div>
+                      <div key={i} 
+                        className="flex items-center gap-3 py-3 px-4 bg-white/[0.02] rounded-lg"
+                        style={{ borderLeft: '3px solid ' + item.color }}
+                      >
+                        <div className="font-semibold text-gray-200 min-w-[180px]">{item.layer}</div>
+                        <div className="text-vigil-muted text-sm">{item.desc}</div>
                       </div>
                     ))}
                   </div>
@@ -325,7 +221,7 @@ export default function PlaybookPage() {
               </Section>
 
               <Section title="Database Schema" icon={Database}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   We use <strong>SQLAlchemy ORM</strong> with SQLite for development. In production, you'd swap to PostgreSQL 
                   by changing the DATABASE_URL environment variable. No code changes needed.
                 </p>
@@ -371,13 +267,13 @@ export default function PlaybookPage() {
           {/* SECURITY TAB */}
           {activeTab === 'security' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>Authentication & Security</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">Authentication & Security</h2>
+              <p className="text-vigil-muted mb-8">
                 How we keep bad actors out while letting legitimate users in. This is the bouncer at the club.
               </p>
 
               <Section title="Password Hashing with BCrypt" icon={Lock} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   We never store passwords in plain text. BCrypt is a <strong>one-way hashing algorithm</strong> 
                   specifically designed to be slow. This makes brute-force attacks impractical.
                 </p>
@@ -409,7 +305,7 @@ is_valid = pwd_context.verify("wrong_password", hashed)  # False`} />
               </Section>
 
               <Section title="JWT Tokens" icon={Key}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   After login, we don't ask for the password on every request. Instead, we issue a 
                   <strong>JSON Web Token (JWT)</strong> — a signed ticket that proves identity.
                 </p>
@@ -447,7 +343,7 @@ HMACSHA256(base64(header) + "." + base64(payload), SECRET_KEY)`} />
               </Section>
 
               <Section title="CORS (Cross-Origin Resource Sharing)" icon={Globe}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   Browsers enforce a security rule: a webpage from domain A cannot make requests to domain B 
                   unless domain B explicitly allows it. This prevents malicious websites from calling your API 
                   using the user's logged-in cookies.
@@ -472,8 +368,8 @@ app.add_middleware(
     allow_headers=["*"],
 )`} />
 
-                <AlertTriangle size={16} color="#f59e0b" style={{ display: 'inline', verticalAlign: 'middle', marginRight: 6 }} />
-                <span style={{ color: '#fbbf24', fontSize: 14 }}>
+                <AlertTriangle size={16} color="#f59e0b" className="inline align-middle mr-1.5" />
+                <span className="text-amber-400 text-sm">
                   We use a strict origin whitelist. Never allow credentials with wildcard origins — this is enforced even in development.
                 </span>
               </Section>
@@ -483,13 +379,13 @@ app.add_middleware(
           {/* SCANNER TAB */}
           {activeTab === 'scanner' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>The Scan Engine</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">The Scan Engine</h2>
+              <p className="text-vigil-muted mb-8">
                 How we turn raw AWS CloudTrail logs into actionable security intelligence.
               </p>
 
               <Section title="CloudTrail Ingestion" icon={Cloud} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   CloudTrail records every API call made in your AWS account. It's like a security camera 
                   that films everything — who did what, when, from where, and what happened.
                 </p>
@@ -506,7 +402,7 @@ app.add_middleware(
   "sourceIPAddress": "203.0.113.45",
   "requestParameters": {
     "bucketName": "customer-data",
-    "bucketPolicy": "{\"Principal\":\"*\"...}"
+    "bucketPolicy": "{\\"Principal\\":\\"*\\"...}"
   },
   "responseElements": null,
   "errorCode": null
@@ -526,7 +422,7 @@ app.add_middleware(
               </Section>
 
               <Section title="Attack Sequence Detection" icon={Activity}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   Individual API calls are meaningless. The real signal is in <strong>sequences</strong> — patterns 
                   of calls that reveal attacker behavior. We group events by actor and time window.
                 </p>
@@ -577,11 +473,11 @@ app.add_middleware(
               </Section>
 
               <Section title="The Kill Chain Model" icon={AlertTriangle}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   We classify API calls into MITRE ATT&CK phases to understand where an attacker is in their operation.
                 </p>
 
-                <div style={{ display: 'grid', gap: 12 }}>
+                <div className="grid gap-3">
                   {[
                     { phase: 'Reconnaissance', events: 'ListBuckets, ListRoles, DescribeInstances, GetAccountAuthorizationDetails', desc: 'Gathering intel — "What do they have?"' },
                     { phase: 'Privilege Escalation', events: 'CreateAccessKey, AttachRolePolicy, UpdateAssumeRolePolicy', desc: 'Gaining more power — "How do I get admin?"' },
@@ -589,15 +485,13 @@ app.add_middleware(
                     { phase: 'Data Access', events: 'GetObject, CreateSnapshot, DescribeSecret', desc: 'Touching valuable data — "What can I steal?"' },
                     { phase: 'Impact', events: 'DeleteBucket, TerminateInstances, PutBucketPolicy', desc: 'Causing damage — "How do I hurt them?"' }
                   ].map((chain, i) => (
-                    <div key={i} style={{ 
-                      padding: '14px 18px', 
-                      background: 'rgba(255,255,255,0.02)', 
-                      borderRadius: 8,
-                      borderLeft: `3px solid ${['#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#dc2626'][i]}`
-                    }}>
-                      <div style={{ fontWeight: 600, color: '#e2e8f0', fontSize: 15, marginBottom: 4 }}>{chain.phase}</div>
-                      <div style={{ fontSize: 13, color: '#64748b', marginBottom: 4, fontFamily: 'monospace' }}>{chain.events}</div>
-                      <div style={{ fontSize: 13, color: '#94a3b8' }}>{chain.desc}</div>
+                    <div key={i} 
+                      className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg"
+                      style={{ borderLeft: '3px solid ' + ['#3b82f6', '#8b5cf6', '#f59e0b', '#ef4444', '#dc2626'][i] }}
+                    >
+                      <div className="font-semibold text-gray-200 text-[15px] mb-1">{chain.phase}</div>
+                      <div className="text-[13px] text-vigil-muted-dark mb-1 font-mono">{chain.events}</div>
+                      <div className="text-[13px] text-vigil-muted">{chain.desc}</div>
                     </div>
                   ))}
                 </div>
@@ -608,13 +502,13 @@ app.add_middleware(
           {/* ML TAB */}
           {activeTab === 'ml' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>The ML Brain</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">The ML Brain</h2>
+              <p className="text-vigil-muted mb-8">
                 How XGBoost learns to distinguish between a CI/CD pipeline and a crypto miner.
               </p>
 
               <Section title="XGBoost: The Algorithm" icon={Brain} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   <strong>XGBoost</strong> (eXtreme Gradient Boosting) is a decision-tree ensemble algorithm. 
                   It builds hundreds of small decision trees, each correcting the errors of the previous ones.
                 </p>
@@ -660,7 +554,7 @@ app.add_middleware(
               </Section>
 
               <Section title="Synthetic Training Data" icon={Cpu}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   We can't wait for real breaches to train the model. Instead, we generate <strong>synthetic 
                   labeled sequences</strong> — fake data that mimics real attack patterns.
                 </p>
@@ -710,13 +604,13 @@ app.add_middleware(
           {/* COMPLIANCE TAB */}
           {activeTab === 'compliance' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>The Compliance Engine</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">The Compliance Engine</h2>
+              <p className="text-vigil-muted mb-8">
                 One policy check. Seven frameworks. Zero manual spreadsheet work.
               </p>
 
               <Section title="Policy-to-Framework Mapping" icon={Shield} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   Traditional compliance: you write 15 separate checks for 15 frameworks. 
                   Vigil: you write 1 check, and it automatically maps to all relevant frameworks.
                 </p>
@@ -744,11 +638,11 @@ app.add_middleware(
               </Section>
 
               <Section title="HIPAA Deep Dive" icon={FileText}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   HIPAA is the most complex framework because it mixes technical controls with administrative procedures.
                 </p>
 
-                <div style={{ display: 'grid', gap: 12 }}>
+                <div className="grid gap-3">
                   {[
                     { rule: '164.312(a)(1)', name: 'Access Control', check: 'S3 public access, IAM over-permission', penalty: '$100 - $50K per violation' },
                     { rule: '164.312(a)(2)(iv)', name: 'Encryption', check: 'Unencrypted EBS, RDS, S3', penalty: '$1K - $50K' },
@@ -756,18 +650,13 @@ app.add_middleware(
                     { rule: '164.308(a)(7)', name: 'Data Backup', check: 'No automated RDS backups', penalty: '$10K - $50K' },
                     { rule: '164.502(b)', name: 'Minimum Necessary', check: 'IAM policies too broad for PHI', penalty: '$100 - $50K' }
                   ].map((rule, i) => (
-                    <div key={i} style={{ 
-                      padding: '14px 18px', 
-                      background: 'rgba(255,255,255,0.02)', 
-                      borderRadius: 8,
-                      borderLeft: '3px solid #ef4444'
-                    }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                        <span style={{ fontWeight: 600, color: '#f8fafc' }}>{rule.rule}</span>
-                        <span style={{ fontSize: 12, color: '#ef4444', fontWeight: 600 }}>{rule.penalty}</span>
+                    <div key={i} className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg border-l-[3px] border-l-vigil-danger">
+                      <div className="flex justify-between mb-1">
+                        <span className="font-semibold text-vigil-text">{rule.rule}</span>
+                        <span className="text-xs text-vigil-danger font-semibold">{rule.penalty}</span>
                       </div>
-                      <div style={{ fontSize: 14, color: '#94a3b8', marginBottom: 4 }}>{rule.name}</div>
-                      <div style={{ fontSize: 13, color: '#64748b' }}>Vigil checks: {rule.check}</div>
+                      <div className="text-sm text-vigil-muted mb-1">{rule.name}</div>
+                      <div className="text-[13px] text-vigil-muted-dark">Vigil checks: {rule.check}</div>
                     </div>
                   ))}
                 </div>
@@ -807,13 +696,13 @@ app.add_middleware(
           {/* REMEDIATION TAB */}
           {activeTab === 'remediation' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>The Remediation Pipeline</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">The Remediation Pipeline</h2>
+              <p className="text-vigil-muted mb-8">
                 Finding problems is useless if you don't fix them. Here's how we go from alert to resolved.
               </p>
 
               <Section title="Terraform Patch Generation" icon={Code} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   For every finding, we generate an <strong>Infrastructure-as-Code patch</strong>. 
                   This is better than clicking "fix" in the console because it's auditable, reversible, and version-controlled.
                 </p>
@@ -864,27 +753,25 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
               </Section>
 
               <Section title="Remediation Complexity Tiers" icon={Layers}>
-                <div style={{ display: 'grid', gap: 12 }}>
+                <div className="grid gap-3">
                   {[
                     { tier: 'One-Click', example: 'Enable S3 Block Public Access', risk: 'None', time: '3 min', auto: true },
                     { tier: 'Automated', example: 'Attach MFA enforcement policy', risk: 'Low', time: '10 min', auto: true },
                     { tier: 'Semi-Automated', example: 'Restrict security group CIDR blocks', risk: 'Medium', time: '15 min', auto: false },
                     { tier: 'Manual', example: 'Redesign VPC network segmentation', risk: 'High', time: '4 hours', auto: false }
                   ].map((item, i) => (
-                    <div key={i} style={{ 
-                      padding: '14px 18px', 
-                      background: 'rgba(255,255,255,0.02)', 
-                      borderRadius: 8,
-                      borderLeft: `3px solid ${item.auto ? '#22c55e' : '#f59e0b'}`
-                    }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-                        <span style={{ fontWeight: 600, color: '#f8fafc' }}>{item.tier}</span>
-                        <span style={{ fontSize: 12, color: item.auto ? '#22c55e' : '#f59e0b', fontWeight: 600 }}>
+                    <div key={i} 
+                      className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg"
+                      style={{ borderLeft: '3px solid ' + (item.auto ? '#22c55e' : '#f59e0b') }}
+                    >
+                      <div className="flex justify-between mb-1">
+                        <span className="font-semibold text-vigil-text">{item.tier}</span>
+                        <span className="text-xs font-semibold" style={{ color: item.auto ? '#22c55e' : '#f59e0b' }}>
                           {item.auto ? 'Auto-Apply' : 'Requires Review'}
                         </span>
                       </div>
-                      <div style={{ fontSize: 14, color: '#94a3b8' }}>{item.example}</div>
-                      <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>
+                      <div className="text-sm text-vigil-muted">{item.example}</div>
+                      <div className="text-[13px] text-vigil-muted-dark mt-1">
                         Blast radius: {item.risk} · Time: {item.time}
                       </div>
                     </div>
@@ -897,13 +784,13 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
           {/* AWS TAB */}
           {activeTab === 'aws' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>AWS Integration</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">AWS Integration</h2>
+              <p className="text-vigil-muted mb-8">
                 How we read your AWS environment without ever storing your credentials.
               </p>
 
               <Section title="Cross-Account IAM Role" icon={Cloud} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   Instead of asking for AWS access keys (which never expire and are hard to revoke), 
                   we use a <strong>cross-account IAM role with External ID</strong>. This is the AWS-recommended 
                   pattern for third-party access.
@@ -946,23 +833,23 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
               </Section>
 
               <Section title="Least Privilege Permissions" icon={Shield}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   The cross-account role uses two AWS-managed policies plus one custom inline policy. 
                   Total access: read-only, no data modification possible.
                 </p>
 
-                <div style={{ display: 'grid', gap: 12 }}>
-                  <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #22c55e' }}>
-                    <div style={{ fontWeight: 600, color: '#f8fafc' }}>SecurityAudit (AWS Managed)</div>
-                    <div style={{ fontSize: 13, color: '#94a3b8' }}>Read-only access to security configuration: IAM, KMS, CloudTrail, Config, GuardDuty</div>
+                <div className="grid gap-3">
+                  <div className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg border-l-[3px] border-l-vigil-success">
+                    <div className="font-semibold text-vigil-text">SecurityAudit (AWS Managed)</div>
+                    <div className="text-[13px] text-vigil-muted">Read-only access to security configuration: IAM, KMS, CloudTrail, Config, GuardDuty</div>
                   </div>
-                  <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #22c55e' }}>
-                    <div style={{ fontWeight: 600, color: '#f8fafc' }}>ReadOnlyAccess (AWS Managed)</div>
-                    <div style={{ fontSize: 13, color: '#94a3b8' }}>Read-only access to all AWS resources: EC2, S3, RDS, Lambda, etc. Cannot modify anything.</div>
+                  <div className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg border-l-[3px] border-l-vigil-success">
+                    <div className="font-semibold text-vigil-text">ReadOnlyAccess (AWS Managed)</div>
+                    <div className="text-[13px] text-vigil-muted">Read-only access to all AWS resources: EC2, S3, RDS, Lambda, etc. Cannot modify anything.</div>
                   </div>
-                  <div style={{ padding: '14px 18px', background: 'rgba(255,255,255,0.02)', borderRadius: 8, borderLeft: '3px solid #3b82f6' }}>
-                    <div style={{ fontWeight: 600, color: '#f8fafc' }}>VigilScannerAdditional (Custom)</div>
-                    <div style={{ fontSize: 13, color: '#94a3b8' }}>cloudtrail:LookupEvents, cloudtrail:GetTrail, config:Get*, config:List*</div>
+                  <div className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg border-l-[3px] border-l-vigil-primary">
+                    <div className="font-semibold text-vigil-text">VigilScannerAdditional (Custom)</div>
+                    <div className="text-[13px] text-vigil-muted">cloudtrail:LookupEvents, cloudtrail:GetTrail, config:Get*, config:List*</div>
                   </div>
                 </div>
 
@@ -979,8 +866,8 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
           {/* BILLING TAB */}
           {activeTab === 'billing' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>Billing & Subscriptions</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">Billing & Subscriptions</h2>
+              <p className="text-vigil-muted mb-8">
                 How Stripe handles money while you handle security.
               </p>
 
@@ -1020,7 +907,7 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
               </Section>
 
               <Section title="Webhook Security" icon={Lock}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   Webhooks are HTTP requests from Stripe to our server. Anyone could fake them. 
                   We verify authenticity using the <strong>Stripe-Signature header</strong>.
                 </p>
@@ -1043,32 +930,27 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
           {/* DEPLOYMENT TAB */}
           {activeTab === 'deploy' && (
             <div className="animate-fade-in">
-              <h2 style={{ fontSize: 28, fontWeight: 800, color: '#f8fafc', marginBottom: 8 }}>Deployment & Operations</h2>
-              <p style={{ color: '#94a3b8', marginBottom: 32 }}>
+              <h2 className="text-[28px] font-extrabold text-vigil-text mb-2">Deployment & Operations</h2>
+              <p className="text-vigil-muted mb-8">
                 How Docker Compose turns code into a running business.
               </p>
 
               <Section title="Docker Compose Architecture" icon={Server} defaultOpen={true}>
-                <p style={{ color: '#94a3b8', lineHeight: 1.7, marginBottom: 16 }}>
+                <p className="text-vigil-muted leading-[1.7] mb-4">
                   Docker Compose orchestrates three containers that talk to each other over an internal network.
                 </p>
 
-                <div style={{ display: 'grid', gap: 12 }}>
+                <div className="grid gap-3">
                   {[
                     { name: 'Backend Container', image: 'Python 3.11 + FastAPI', ports: '8000:8000', network: 'vigil_default', data: 'SQLite volume (backend_data)' },
                     { name: 'Frontend Container', image: 'Node 20 + Vite + React', ports: '5173:5173', network: 'vigil_default', data: 'None (build-time assets)' },
                     { name: 'Redis Container', image: 'Redis 7 Alpine', ports: '6379:6379', network: 'vigil_default', data: 'In-memory (ephemeral)' }
                   ].map((c, i) => (
-                    <div key={i} style={{ 
-                      padding: '14px 18px', 
-                      background: 'rgba(255,255,255,0.02)', 
-                      borderRadius: 8,
-                      borderLeft: '3px solid #3b82f6'
-                    }}>
-                      <div style={{ fontWeight: 600, color: '#f8fafc', marginBottom: 4 }}>{c.name}</div>
-                      <div style={{ fontSize: 13, color: '#64748b' }}>{c.image}</div>
-                      <div style={{ fontSize: 13, color: '#94a3b8', marginTop: 4 }}>Port: {c.ports} · Network: {c.network}</div>
-                      <div style={{ fontSize: 13, color: '#94a3b8' }}>Persistence: {c.data}</div>
+                    <div key={i} className="py-3.5 px-[18px] bg-white/[0.02] rounded-lg border-l-[3px] border-l-vigil-primary">
+                      <div className="font-semibold text-vigil-text mb-1">{c.name}</div>
+                      <div className="text-[13px] text-vigil-muted-dark">{c.image}</div>
+                      <div className="text-[13px] text-vigil-muted mt-1">Port: {c.ports} · Network: {c.network}</div>
+                      <div className="text-[13px] text-vigil-muted">Persistence: {c.data}</div>
                     </div>
                   ))}
                 </div>
@@ -1105,7 +987,7 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
               </Section>
 
               <Section title="Production Checklist" icon={Terminal}>
-                <div style={{ display: 'grid', gap: 10 }}>
+                <div className="grid gap-2.5">
                   {[
                     'Replace SQLite with PostgreSQL (RDS or managed)',
                     'Add PostgreSQL container to docker-compose.yml',
@@ -1122,18 +1004,11 @@ resource "aws_s3_bucket_policy" "customer_data_tls" {
                     'Enable AWS WAF if using ALB/CloudFront',
                     'Set up health checks and auto-restart policies'
                   ].map((item, i) => (
-                    <div key={i} style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: 10,
-                      padding: '10px 14px',
-                      background: 'rgba(255,255,255,0.02)',
-                      borderRadius: 6
-                    }}>
-                      <div style={{ width: 20, height: 20, borderRadius: 4, border: '2px solid #334155', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <div style={{ width: 10, height: 10, borderRadius: 2, background: '#334155' }} />
+                    <div key={i} className="flex items-center gap-2.5 py-2.5 px-3.5 bg-white/[0.02] rounded-md">
+                      <div className="w-5 h-5 rounded border-2 border-vigil-border-light flex items-center justify-center shrink-0">
+                        <div className="w-2.5 h-2.5 rounded-sm bg-vigil-border-light" />
                       </div>
-                      <span style={{ color: '#94a3b8', fontSize: 14 }}>{item}</span>
+                      <span className="text-vigil-muted text-sm">{item}</span>
                     </div>
                   ))}
                 </div>

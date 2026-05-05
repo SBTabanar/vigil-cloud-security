@@ -8,13 +8,13 @@ const getScoreColor = (s) => s >= 750 ? '#ef4444' : s >= 500 ? '#f97316' : s >= 
 
 function StatCard({ title, value, sub, icon: Icon, color }) {
   return (
-    <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 20 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-        <span style={{ fontSize: 12, fontWeight: 600, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5 }}>{title}</span>
+    <div className="bg-vigil-surface border border-vigil-border rounded-xl p-5">
+      <div className="flex justify-between items-start mb-3">
+        <span className="text-xs font-semibold text-vigil-muted-dark uppercase tracking-[0.5px]">{title}</span>
         <Icon size={18} color={color} />
       </div>
-      <div style={{ fontSize: 28, fontWeight: 700, color: '#f8fafc' }}>{value}</div>
-      {sub && <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>{sub}</div>}
+      <div className="text-[28px] font-bold text-vigil-text">{value}</div>
+      {sub && <div className="text-xs text-vigil-muted-dark mt-1">{sub}</div>}
     </div>
   )
 }
@@ -23,22 +23,19 @@ function ScoreRing({ score, label, size = 70 }) {
   const color = getScoreColor(score)
   const pct = Math.min(score / 10, 100)
   return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{
-        width: size, height: size, borderRadius: '50%',
-        background: `conic-gradient(${color} ${pct}%, #334155 ${pct}%)`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        margin: '0 auto 8px'
-      }}>
-        <div style={{
-          width: size - 10, height: size - 10, borderRadius: '50%',
-          background: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color, fontSize: size > 60 ? 18 : 13, fontWeight: 700
-        }}>
+    <div className="text-center">
+      <div
+        className="rounded-full flex items-center justify-center mx-auto mb-2"
+        style={{ width: size, height: size, background: `conic-gradient(${color} ${pct}%, #334155 ${pct}%)` }}
+      >
+        <div
+          className="rounded-full flex items-center justify-center bg-vigil-surface font-bold"
+          style={{ width: size - 10, height: size - 10, color, fontSize: size > 60 ? 18 : 13 }}
+        >
           {Math.round(score)}
         </div>
       </div>
-      <div style={{ fontSize: 11, color: '#64748b' }}>{label}</div>
+      <div className="text-[11px] text-vigil-muted-dark">{label}</div>
     </div>
   )
 }
@@ -82,21 +79,21 @@ export default function DashboardPage() {
     }
   }
 
-  if (loading) return <div style={{ padding: 60, textAlign: 'center', color: '#64748b' }}>Loading dashboard...</div>
+  if (loading) return <div className="p-[60px] text-center text-vigil-muted-dark">Loading dashboard...</div>
 
   // Empty state: no AWS accounts connected
   if (!data || data.summary.aws_accounts === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '80px 24px' }}>
-        <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+      <div className="text-center py-20 px-6">
+        <div className="w-20 h-20 rounded-full bg-vigil-primary/10 flex items-center justify-center mx-auto mb-6">
           <Globe size={36} color="#3b82f6" />
         </div>
-        <h2 style={{ fontSize: 24, fontWeight: 700, color: '#f8fafc', marginBottom: 12 }}>No AWS Account Connected</h2>
-        <p style={{ fontSize: 15, color: '#94a3b8', maxWidth: 500, margin: '0 auto 32px', lineHeight: 1.6 }}>
+        <h2 className="text-2xl font-bold text-vigil-text mb-3">No AWS Account Connected</h2>
+        <p className="text-[15px] text-vigil-muted max-w-[500px] mx-auto mb-8 leading-[1.6]">
           Connect your AWS account to start scanning for misconfigurations, compliance gaps, and active attack patterns. It takes about 3 minutes.
         </p>
         <button onClick={() => navigate('/onboarding')}
-          style={{ padding: '14px 32px', background: '#3b82f6', color: '#fff', borderRadius: 10, fontSize: 15, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 8 }}
+          className="py-3.5 px-8 bg-vigil-primary text-white rounded-[10px] text-[15px] font-semibold inline-flex items-center gap-2"
         >
           <Cloud size={18} /> Connect AWS Account
         </button>
@@ -109,20 +106,20 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+      <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: '#f8fafc' }}>Dashboard</h1>
-          <p style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>{s.organization_name} · Last scan: {s.last_scan_at ? new Date(s.last_scan_at).toLocaleString() : 'Never'}</p>
+          <h1 className="text-2xl font-bold text-vigil-text">Dashboard</h1>
+          <p className="text-[13px] text-vigil-muted-dark mt-1">{s.organization_name} · Last scan: {s.last_scan_at ? new Date(s.last_scan_at).toLocaleString() : 'Never'}</p>
         </div>
         <button onClick={handleScan}
-          style={{ padding: '10px 20px', background: '#3b82f6', color: '#fff', borderRadius: 8, fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}
+          className="py-2.5 px-5 bg-vigil-primary text-white rounded-lg text-[13px] font-semibold flex items-center gap-2"
         >
           <Zap size={16} /> Run New Scan
         </button>
       </div>
 
       {/* Score Rings */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 16, marginBottom: 24 }}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 mb-6">
         <ScoreRing score={s.max_risk_score} label="Max Risk" />
         <ScoreRing score={s.avg_risk_score} label="Avg Risk" />
         <ScoreRing score={sev.critical * 50} label="Critical Exposure" />
@@ -130,7 +127,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 24 }}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 mb-6">
         <StatCard title="Events Analyzed" value={s.total_events.toLocaleString()} icon={Activity} color="#3b82f6" sub="CloudTrail records" />
         <StatCard title="Attack Sequences" value={s.total_sequences.toLocaleString()} icon={AlertTriangle} color="#f97316" sub="Actor-grouped sessions" />
         <StatCard title="Malicious Flagged" value={s.malicious_sequences.toLocaleString()} icon={Shield} color="#ef4444" sub={`${(s.malicious_sequences / Math.max(s.total_sequences, 1) * 100).toFixed(1)}% of total`} />
@@ -140,9 +137,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Row */}
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16, marginBottom: 24 }}>
-        <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 16 }}>Risk Timeline (30 Days)</div>
+      <div className="grid grid-cols-[2fr_1fr] gap-4 mb-6">
+        <div className="bg-vigil-surface border border-vigil-border rounded-xl p-5">
+          <div className="text-[13px] font-semibold text-vigil-muted uppercase tracking-[0.5px] mb-4">Risk Timeline (30 Days)</div>
           <ResponsiveContainer width="100%" height={200}>
             <AreaChart data={data.timeline}>
               <defs>
@@ -161,8 +158,8 @@ export default function DashboardPage() {
           </ResponsiveContainer>
         </div>
 
-        <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 20 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 16 }}>Findings by Severity</div>
+        <div className="bg-vigil-surface border border-vigil-border rounded-xl p-5">
+          <div className="text-[13px] font-semibold text-vigil-muted uppercase tracking-[0.5px] mb-4">Findings by Severity</div>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={[
               { name: 'Critical', value: sev.critical, color: '#ef4444' },
@@ -183,20 +180,20 @@ export default function DashboardPage() {
       </div>
 
       {/* Top Actors */}
-      <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 20, marginBottom: 24 }}>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 16 }}>Highest Risk Actors</div>
+      <div className="bg-vigil-surface border border-vigil-border rounded-xl p-5 mb-6">
+        <div className="text-[13px] font-semibold text-vigil-muted uppercase tracking-[0.5px] mb-4">Highest Risk Actors</div>
         {data.top_actors.map((a, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '12px 0', borderBottom: i < data.top_actors.length - 1 ? '1px solid #1e293b' : 'none' }}>
-            <div style={{ fontSize: 20, fontWeight: 700, color: getScoreColor(a.max_score), width: 50, textAlign: 'right' }}>
+          <div key={i} className={`flex items-center gap-4 py-3 ${i < data.top_actors.length - 1 ? 'border-b border-vigil-border' : ''}`}>
+            <div className="text-xl font-bold w-[50px] text-right" style={{ color: getScoreColor(a.max_score) }}>
               {Math.round(a.max_score)}
             </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 14, fontWeight: 600, color: '#f8fafc' }}>{a.actor.split('/').pop()}</div>
-              <div style={{ fontSize: 12, color: '#64748b' }}>{a.sequences} sequences</div>
+            <div className="flex-1">
+              <div className="text-sm font-semibold text-vigil-text">{a.actor.split('/').pop()}</div>
+              <div className="text-xs text-vigil-muted-dark">{a.sequences} sequences</div>
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            <div className="flex gap-1.5 flex-wrap">
               {a.findings.slice(0, 3).map((f, j) => (
-                <span key={j} style={{ fontSize: 10, padding: '2px 8px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: 4, fontWeight: 600 }}>{f}</span>
+                <span key={j} className="text-[10px] py-0.5 px-2 bg-vigil-danger/10 text-vigil-danger rounded font-semibold">{f}</span>
               ))}
             </div>
           </div>
@@ -204,42 +201,40 @@ export default function DashboardPage() {
       </div>
 
       {/* Remediation Queue */}
-      <div style={{ background: '#0f172a', border: '1px solid #1e293b', borderRadius: 12, padding: 20 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: 0.5 }}>Remediation Queue</div>
-          <Link to="/app/findings" style={{ fontSize: 13, color: '#3b82f6', fontWeight: 500 }}>View All</Link>
+      <div className="bg-vigil-surface border border-vigil-border rounded-xl p-5">
+        <div className="flex justify-between items-center mb-4">
+          <div className="text-[13px] font-semibold text-vigil-muted uppercase tracking-[0.5px]">Remediation Queue</div>
+          <Link to="/app/findings" className="text-[13px] text-vigil-primary font-medium">View All</Link>
         </div>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-[13px]">
             <thead>
-              <tr style={{ borderBottom: '1px solid #334155' }}>
-                <th style={{ textAlign: 'left', padding: '10px 12px', color: '#94a3b8', fontWeight: 600 }}>Finding</th>
-                <th style={{ textAlign: 'left', padding: '10px 12px', color: '#94a3b8', fontWeight: 600 }}>Severity</th>
-                <th style={{ textAlign: 'left', padding: '10px 12px', color: '#94a3b8', fontWeight: 600 }}>Complexity</th>
-                <th style={{ textAlign: 'left', padding: '10px 12px', color: '#94a3b8', fontWeight: 600 }}>Auto-Fix</th>
-                <th style={{ textAlign: 'left', padding: '10px 12px', color: '#94a3b8', fontWeight: 600 }}>Time</th>
+              <tr className="border-b border-vigil-border-light">
+                <th className="text-left py-2.5 px-3 text-vigil-muted font-semibold">Finding</th>
+                <th className="text-left py-2.5 px-3 text-vigil-muted font-semibold">Severity</th>
+                <th className="text-left py-2.5 px-3 text-vigil-muted font-semibold">Complexity</th>
+                <th className="text-left py-2.5 px-3 text-vigil-muted font-semibold">Auto-Fix</th>
+                <th className="text-left py-2.5 px-3 text-vigil-muted font-semibold">Time</th>
               </tr>
             </thead>
             <tbody>
               {data.remediation_queue.slice(0, 5).map((r, i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #1e293b' }}>
-                  <td style={{ padding: '10px 12px', color: '#f8fafc', fontWeight: 500 }}>{r.policy_name}</td>
-                  <td style={{ padding: '10px 12px' }}>
-                    <span style={{
-                      fontSize: 11, padding: '2px 8px', borderRadius: 4, fontWeight: 600,
-                      background: r.severity === 'critical' ? 'rgba(239, 68, 68, 0.1)' : r.severity === 'high' ? 'rgba(249, 115, 22, 0.1)' : 'rgba(234, 179, 8, 0.1)',
-                      color: r.severity === 'critical' ? '#ef4444' : r.severity === 'high' ? '#f97316' : '#eab308'
-                    }}>{r.severity}</span>
+                <tr key={i} className="border-b border-vigil-border">
+                  <td className="py-2.5 px-3 text-vigil-text font-medium">{r.policy_name}</td>
+                  <td className="py-2.5 px-3">
+                    <span className={`text-[11px] py-0.5 px-2 rounded font-semibold ${
+                      r.severity === 'critical' ? 'bg-vigil-danger/10 text-vigil-danger' :
+                      r.severity === 'high' ? 'bg-vigil-orange/10 text-vigil-orange' :
+                      'bg-vigil-warning/10 text-vigil-warning'
+                    }`}>{r.severity}</span>
                   </td>
-                  <td style={{ padding: '10px 12px', color: '#94a3b8' }}>{r.complexity}</td>
-                  <td style={{ padding: '10px 12px' }}>
-                    <span style={{
-                      fontSize: 11, padding: '2px 8px', borderRadius: 4, fontWeight: 600,
-                      background: r.can_auto_apply ? 'rgba(34, 197, 94, 0.1)' : 'rgba(107, 114, 128, 0.1)',
-                      color: r.can_auto_apply ? '#22c55e' : '#9ca3af'
-                    }}>{r.can_auto_apply ? 'Yes' : 'No'}</span>
+                  <td className="py-2.5 px-3 text-vigil-muted">{r.complexity}</td>
+                  <td className="py-2.5 px-3">
+                    <span className={`text-[11px] py-0.5 px-2 rounded font-semibold ${
+                      r.can_auto_apply ? 'bg-vigil-success/10 text-vigil-success' : 'bg-gray-500/10 text-gray-400'
+                    }`}>{r.can_auto_apply ? 'Yes' : 'No'}</span>
                   </td>
-                  <td style={{ padding: '10px 12px', color: '#94a3b8' }}>{r.estimated_time}min</td>
+                  <td className="py-2.5 px-3 text-vigil-muted">{r.estimated_time}min</td>
                 </tr>
               ))}
             </tbody>
