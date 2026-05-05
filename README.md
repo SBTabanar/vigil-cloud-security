@@ -58,7 +58,7 @@ This project is **open-source** and intended as a portfolio piece. You can self-
 | **CIS AWS 3.0** | IAM, S3, EC2, logging benchmarks |
 | **NIST CSF 2.0** | Access control, privilege management |
 
-<img width="1470" height="722" alt="Screenshot 2026-05-05 at 1 13 06 PM" src="https://github.com/user-attachments/assets/b1108c02-ca44-4e9c-9750-fd7f6e2ec4e5" />
+<img width="1470" height="722" alt="Screenshot 2026-05-05 at 1 13 06 PM" src="https://github.com/user-attachments/assets/fefc2677-398b-43aa-b87e-c58a2e072c99" />
 
 
 ### Full-Stack Implementation
