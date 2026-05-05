@@ -5,7 +5,7 @@
 
 > **Portfolio Project** | A production-grade cloud security platform built with FastAPI, React, and XGBoost.
 > 
-> 🔒 **License:** AGPL-3.0 | 🌏 **Built in:** Manila, Philippines
+> 🔒 **License:** AGPL-3.0 | 🌏 **Built in:** Iloilo, Philippines
 
 [![AGPL-3.0 License](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
