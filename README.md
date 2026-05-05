@@ -1,5 +1,8 @@
 # Vigil — Cloud Security & Compliance Automation
 
+<img width="1470" height="722" alt="dashboard" src="https://github.com/user-attachments/assets/0932180e-fad4-44de-82cf-7e78c8a95e16" />
+
+
 > **Portfolio Project** | A production-grade cloud security platform built with FastAPI, React, and XGBoost.
 > 
 > 🔒 **License:** AGPL-3.0 | 🌏 **Built in:** Manila, Philippines
@@ -54,6 +57,9 @@ This project is **open-source** and intended as a portfolio piece. You can self-
 | **ISO 27001:2022** | Cryptography, access control |
 | **CIS AWS 3.0** | IAM, S3, EC2, logging benchmarks |
 | **NIST CSF 2.0** | Access control, privilege management |
+
+<img width="1470" height="722" alt="Screenshot 2026-05-05 at 1 13 06 PM" src="https://github.com/user-attachments/assets/b1108c02-ca44-4e9c-9750-fd7f6e2ec4e5" />
+
 
 ### Full-Stack Implementation
 - **Backend:** FastAPI, SQLAlchemy, JWT auth, async email service
